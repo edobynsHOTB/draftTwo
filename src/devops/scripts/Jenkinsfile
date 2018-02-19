@@ -7,14 +7,14 @@ node {
         } else {
             if (scmVars.GIT_BRANCH == 'origin/staging') {
                 println "Staging Branch"
-                sh 'cp /aws/adpq/server/staging/config.json ./src/server/src'
+                sh 'cp /aws/adpq/server/staging/config.json ./src/server/src/config.json'
                 println "Copied Staging Config.json"
                 build()
                 publish()
                 deployStaging()
             } else if (scmVars.GIT_BRANCH == 'origin/master') {
                 println "Master Branch"
-                sh 'cp /aws/adpq/server/staging/config.json ./src/server/src'
+                sh 'cp /aws/adpq/server/staging/config.json ./src/server/src/config.json'
                 println "Copied Production Config.json"
                 build()
                 publish()
