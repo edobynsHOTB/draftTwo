@@ -1,25 +1,23 @@
-
-var config = require('./config');
-var express = require('express'),
+var config = require('./config'),
+    express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
-    //tag = require('./models/tag');
+    tag = require('./models/tag'),
     port = process.env.port || 3001;
 
 //connect to db
 mongoose.Promise = global.Promise;
 
-    // const options = {
-    //     user: config.dbUser,
-    //     pass: config.dbPassword,
-    //     auth: {
-    //         authdb: 'admin'
-    //     }
-    // }
+const options = {
+    user: config.dbUser,
+    pass: config.dbPassword,
+    auth: {
+        authdb: 'admin'
+    }
+}
 
-//mongoose.connect(config.dbUrl, options);
-mongoose.connect(config.dbUrl);
+mongoose.connect(config.dbUrl, options);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
