@@ -34,7 +34,7 @@ app.use(bodyParser.json());
 var routes = require('./routes'); //import routes
 routes(app);
 
-app.get('/', (req, res) => res.send('Hello Server Test!'))
+app.get('/', (req, res) => res.send('Hello Server Test!, connected to ' + db.db.databaseName))
 
 app.listen(port);
 console.log('Server listening on port 3001'); 
