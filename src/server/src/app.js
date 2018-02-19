@@ -21,6 +21,7 @@ mongoose.connect(config.dbUrl, options).then(() => {
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
     
+    
     //models
     require('./models/tag');
     require('./models/agency');
