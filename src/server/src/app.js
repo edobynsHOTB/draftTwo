@@ -17,24 +17,31 @@ const options = {
     }
 }
 
-mongoose.connect(config.dbUrl, options);
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-
-//models
-require('./models/tag');
-require('./models/agency');
-require('./models/article');
-
-//body parser
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json()); 
-
-//routes
-var routes = require('./routes'); //import routes
-routes(app);
-
-app.get('/', (req, res) => res.send('Hello Server Test!, connected to ' + db.db.databaseName))
-
-app.listen(port);
-console.log('Server listening on port 3001'); 
+mongoose.connect(config.dbUrl, options).then(() => {
+    var db = mongoose.connection;
+    db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+    
+    //models
+    require('./models/tag');
+    require('./models/agency');
+    require('./models/article');
+    
+    //body parser
+    app.use(bodyParser.urlencoded({ extended: true }));
+    app.use(bodyParser.json()); 
+    
+    //routes
+    var routes = require('./routes'); //import routes
+    routes(app);
+    
+    app.get('/', (req, res) => {
+        res.send('Hello Server Test!, connected to ' + db)
+    })
+    
+    app.listen(port, () => {
+        console.log('Server listening on port 3001')
+    })
+    
+}, error => {
+    console.log(error)
+})
