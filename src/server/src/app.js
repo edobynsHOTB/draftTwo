@@ -34,10 +34,10 @@ mongoose.connect(config.dbUrl, options).then(() => {
     var routes = require('./routes'); //import routes
     routes(app);
 
-    app.use(express.static(require('path').join(__dirname, '../../web')));
+    app.use(express.static(require('path').join(__dirname, 'public')));
 
     app.get('/', (req, res) => {
-        res.sendFile('/index.html', {root : __dirname + '../../web'})
+        res.sendFile('/index.html', {root : __dirname + 'public'})
     })
 
     app.listen(port, () => {
