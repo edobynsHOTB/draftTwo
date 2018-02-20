@@ -15,7 +15,7 @@ const options = {
     auth: {
         authdb: 'admin'
     }
-}
+};
 
 mongoose.connect(config.dbUrl, options).then(() => {
     var db = mongoose.connection;
@@ -33,15 +33,11 @@ mongoose.connect(config.dbUrl, options).then(() => {
     //routes
     var routes = require('./routes'); //import routes
     routes(app);
-    
-    app.get('/', (req, res) => {
-        res.send('Plz goway.')
-    })
-    
+
     app.listen(port, () => {
         console.log('Server listening on port 3001')
-    })
+    });
     
 }, error => {
     console.log(error)
-})
+});
