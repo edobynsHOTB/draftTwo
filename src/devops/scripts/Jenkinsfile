@@ -169,7 +169,7 @@ def deployStaging() {
 
         sh '''#!/bin/bash
             sleep 10
-            node ./src/devops/scripts/slackNotification.js "SUCCESS" "*Updated Staging Build*: http://adpq-staging.hotbsoftware.com"
+            node ./src/devops/scripts/slackNotification.js "SUCCESS" "*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com"
         '''
     }
 }
