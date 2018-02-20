@@ -21,12 +21,11 @@ mongoose.connect(config.dbUrl, options).then(() => {
     var db = mongoose.connection;
     db.on('error', console.error.bind(console, 'MongoDB connection error:'));
     
-    
     //models
     require('./models/tag');
     require('./models/agency');
     require('./models/article');
-    
+
     //body parser
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json()); 
@@ -36,7 +35,7 @@ mongoose.connect(config.dbUrl, options).then(() => {
     routes(app);
     
     app.get('/', (req, res) => {
-        res.send('Hello Server Test!, connected to ' + db)
+        res.send('Plz goway.')
     })
     
     app.listen(port, () => {

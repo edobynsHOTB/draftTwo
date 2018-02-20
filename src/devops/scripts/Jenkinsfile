@@ -162,6 +162,15 @@ def deployStaging() {
             main;
         '''
     }
+
+    stage ('Send Notification') {
+        def nodeHome = tool 'NodeTool'
+        env.PATH="${env.PATH}:${nodeHome}/bin"
+
+        sh '''#!/bin/bash
+            node ./slackNotification.js "SUCCESS" "*Updated Staging Build*: http://adpq-staging.hotbosftware.com"
+        '''
+    }
 }
 
 def deployProduction() {
@@ -276,6 +285,15 @@ def deployProduction() {
 
             ### Start
             main;
+        '''
+    }
+
+    stage ('Send Notification') {
+        def nodeHome = tool 'NodeTool'
+        env.PATH="${env.PATH}:${nodeHome}/bin"
+
+        sh '''#!/bin/bash
+            node ./slackNotification.js "SUCCESS" "*Updated Production Build*: http://adpq.hotbosftware.com"
         '''
     }
 }

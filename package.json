@@ -13,12 +13,8 @@
   },
   "scripts": {
     "start": "docker-compose up --build -d && clear",
-    "stop": "docker stop 'server' && docker stop 'db' && clear",
     "build": "docker-compose build --force-rm --no-cache --pull && clear",
-    "teardown": "docker rm -f 'server' && docker rm -f 'db' && clear",
-    "clean": "npm run clean:docker && npm run clean:db && clear",
-    "clean:docker": "docker rmi 'adpq2018_server' && docker rmi 'mongo' && clear",
-    "clean:db": "rm -rf ./data"
+    "teardown": "docker stop 'api' && docker rm -f 'api' && docker rmi 'api' && clear"
   },
   "dependencies": {},
   "devDependencies": {},
