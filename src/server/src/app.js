@@ -37,7 +37,7 @@ mongoose.connect(config.dbUrl, options).then(() => {
     app.use(express.static(require('path').join(__dirname, '../../web')));
 
     app.get('/', (req, res) => {
-        res.sendFile('../../web/index.html')
+        res.sendFile('/index.html', {root : __dirname + '../../web'})
     })
 
     app.listen(port, () => {
