@@ -27,9 +27,9 @@ exports.scrapeAgencies = (completion) => {
 			
 			var agencyArray = []
 			$('#list').find('li').each(function(i, elm) {
-					var str = $(this).text()
-					var parsedStr = str.split(/[\|]/)
-					agencyArray.push(parsedStr[2].trim())
+				var str = $(this).text()
+				var parsedStr = str.split(/[\|]/)
+				agencyArray.push(parsedStr[2].trim())
 			})
 
 			completion(agencyArray)
