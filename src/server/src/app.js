@@ -34,10 +34,15 @@ mongoose.connect(config.dbUrl, options).then(() => {
     var routes = require('./routes'); //import routes
     routes(app);
 
+    app.use(express.static(require('path').join(__dirname, '../../web')));
+
+    app.get('/', (req, res) => {
+        res.render('../../web/index.html')
+    })
+
     app.listen(port, () => {
         console.log('Server listening on port 3001')
     });
-    
     
 }, error => {
     console.log(error)
