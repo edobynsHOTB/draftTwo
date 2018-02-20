@@ -295,7 +295,7 @@ def deployProduction() {
 
         sh '''#!/bin/bash
             sleep 10
-            node ./src/devops/scripts/slackNotification.js "SUCCESS" "*Updated Production Build*: http://adpq.hotbsoftware.com"
+            node ./src/devops/scripts/slackNotification.js "SUCCESS" "*New Production Build Available*:\nhttp://adpq.hotbsoftware.com"
         '''
     }
 }
