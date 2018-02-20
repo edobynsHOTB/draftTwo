@@ -168,6 +168,7 @@ def deployStaging() {
         env.PATH="${env.PATH}:${nodeHome}/bin"
 
         sh '''#!/bin/bash
+            sleep 10
             node ./src/devops/scripts/slackNotification.js "SUCCESS" "*Updated Staging Build*: http://adpq-staging.hotbsoftware.com"
         '''
     }
@@ -293,6 +294,7 @@ def deployProduction() {
         env.PATH="${env.PATH}:${nodeHome}/bin"
 
         sh '''#!/bin/bash
+            sleep 10
             node ./src/devops/scripts/slackNotification.js "SUCCESS" "*Updated Production Build*: http://adpq.hotbsoftware.com"
         '''
     }
