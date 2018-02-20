@@ -38,6 +38,7 @@ mongoose.connect(config.dbUrl, options).then(() => {
         console.log('Server listening on port 3001')
     });
     
+    
 }, error => {
     console.log(error)
 });
