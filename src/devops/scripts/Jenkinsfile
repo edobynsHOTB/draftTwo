@@ -199,14 +199,8 @@ def sendSlackNotification() {
     stage ('Notify') {
         def nodeHome = tool 'NodeTool' // Load Node.js
         env.PATH="${env.PATH}:${nodeHome}/bin" // Set Path
-        // def results = readFile('testResults')
         RESULTS = readFile 'testResults'
-        echo "RESULTS:"
-        echo "$RESULTS"
-        // echo "RESULTS: --->"
-        // echo results
-        sh "sleep 10 && logs=\$(git log -1 --pretty=%B origin/staging) && echo \"$RESULTS\" && node ./src/devops/scripts/slackNotification.js \"SUCCESS\" \"*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n\$logs\n\" \"$RESULTS\""
-        
+        sh "sleep 10 && logs=\$(git log -1 --pretty=%B origin/staging) && echo \"$RESULTS\" && node ./src/devops/scripts/slackNotification.js \"SUCCESS\" \"*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n\$logs\n\n\" \"$RESULTS\""
     }
 }
 
