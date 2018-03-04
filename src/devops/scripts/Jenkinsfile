@@ -64,17 +64,13 @@ def runStagingTests() {
             docker rm adpq_tests && docker rmi adpq_tests
 
             numberOfTests=$(cat /var/lib/jenkins/adpq_test_results/results.xml | cut -d '=' -f 2 | cut -d ' ' -f 1)
-            echo "number of tests: "
-            echo $numberOfTests
             errors=$(cat /var/lib/jenkins/adpq_test_results/results.xml | cut -d '=' -f 3 | cut -d ' ' -f 1)
-            echo "errors:"
-            echo $errors
             failures=$(cat /var/lib/jenkins/adpq_test_results/results.xml | cut -d '=' -f 4 | cut -d '>' -f 1)
-            echo "failures:"
-            echo $failures
             numberOfSuccesses=$(($numberOfTests - $errors - $failures))
-            echo "$numberOfSuccesses / $numberOfTests tests ran successfully"
-            echo "$numberOfSuccesses / $numberOfTests tests ran successfully" > testResults
+
+            curl https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-brightgreen.svg >> testResults.svg
+            aws s3 cp --acl public-read testResults.svg s3://adpq-assets/buildAssets/testResults.svg
+            rm -rf testResults.svg
         '''
     }
 }
@@ -199,14 +195,8 @@ def sendSlackNotification() {
     stage ('Notify') {
         def nodeHome = tool 'NodeTool' // Load Node.js
         env.PATH="${env.PATH}:${nodeHome}/bin" // Set Path
-        // def results = readFile('testResults')
         RESULTS = readFile 'testResults'
-        echo "RESULTS:"
-        echo "$RESULTS"
-        // echo "RESULTS: --->"
-        // echo results
         sh "sleep 10 && logs=\$(git log -1 --pretty=%B origin/staging) && echo \"$RESULTS\" && node ./src/devops/scripts/slackNotification.js \"SUCCESS\" \"*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n\$logs\n\" \"$RESULTS\""
-        
     }
 }
 
