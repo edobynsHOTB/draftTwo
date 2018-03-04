@@ -69,7 +69,14 @@ def runStagingTests() {
             numberOfSuccesses=$(($numberOfTests - $errors - $failures))
             echo "$numberOfSuccesses / $numberOfTests tests ran successfully" > testResults
 
-            curl https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-brightgreen.svg >> ./testResultsImg.svg
+            testBadge=""
+            if [ $numberOfSuccesses < $sumberOfTests ]; then
+                testBadge=https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-red.svg
+            else
+                testBadge=https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-brightgreen.svg
+            fi
+
+            curl $testBadge >> ./testResultsImg.svg
             aws s3 cp --acl public-read ./testResultsImg.svg s3://adpq-assets/buildAssets/testResults.svg
             rm -rf ./testResultsImg.svg
         '''
