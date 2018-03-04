@@ -70,7 +70,6 @@ def runStagingTests() {
 
             curl https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-brightgreen.svg >> testResults.svg
             aws s3 cp --acl public-read testResults.svg s3://adpq-assets/buildAssets/testResults.svg
-            rm -rf ../testResults.svg
         '''
     }
 }
