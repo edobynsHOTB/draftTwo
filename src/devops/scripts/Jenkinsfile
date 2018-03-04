@@ -200,7 +200,7 @@ def sendSlackNotification() {
         def nodeHome = tool 'NodeTool' // Load Node.js
         env.PATH="${env.PATH}:${nodeHome}/bin" // Set Path
         // def results = readFile('testResults')
-        env.RESULTS = readFile 'testResults.xml'
+        env.RESULTS = readFile 'testResults'
         echo "${env.RESULTS}"
         // echo "RESULTS: --->"
         // echo results
