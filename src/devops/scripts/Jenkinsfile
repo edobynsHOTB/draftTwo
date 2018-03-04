@@ -213,7 +213,7 @@ def sendSlackNotification() {
             node ./src/devops/scripts/slackNotification.js "SUCCESS" "*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n$logs\n" "$1"
         '''
 
-        script RESULTS
+        script "$RESULTS"
     }
 }
 
