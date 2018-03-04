@@ -3,8 +3,9 @@ var config = require('./config'),
     app = express(),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
-    tag = require('./models/tag'),
     port = process.env.port || 3001;
+
+var cors = require('cors');
 
 //connect to db
 mongoose.Promise = global.Promise;
@@ -23,8 +24,14 @@ mongoose.connect(config.dbUrl, options).then(() => {
     
     //models
     require('./models/tag');
+    require('./models/user');
     require('./models/agency');
+    require('./models/articleComment');
+    require('./models/articleEdit');
     require('./models/article');
+
+    //cors 
+    app.use(cors()); 
 
     //body parser
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -32,7 +39,7 @@ mongoose.connect(config.dbUrl, options).then(() => {
     
     //routes
     var routes = require('./routes'); //import routes
-    routes(app);
+    routes(app, config.apiParseKey, config.AWSKeys);
 
     app.use(express.static(require('path').join(__dirname, 'public')));
 

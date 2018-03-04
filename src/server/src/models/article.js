@@ -2,21 +2,25 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var agency = mongoose.model('agency'); 
 
 var articleModel = new Schema({
         createdAt: Date,
-        createdBy: Schema.Types.ObjectId,//mongoose.Types.ObjectId(string)
-        agency: Schema.Types.ObjectId,
-        role: Number,//0 - 4
-        status: Number,//0 - closed, 1-open
+        createdBy: {type: Schema.Types.ObjectId, ref: 'user'},
+        agency: {type: Schema.Types.ObjectId, ref: 'agency'},
+        role: Number,//0 - 2
+        status: Number,//0 - open, 1 - published, 2 - declined
         title: String,
         summary: String,
-        approvedBy: Schema.Types.ObjectId,
-        tags: [String],
+        approvedBy: Schema.Types.ObjectId,//{type: Schema.Types.ObjectId, ref: 'users'},
+        tags: [{type: Schema.Types.ObjectId, ref: 'tags'}],
+        comments: [{type: Schema.Types.ObjectId, ref: 'articleComment'}],//ref article comments
         views: Number,
-        description: [{role: Number, value: String}],
-        attachments: [{role: Number, value: [String]}]
+        type: Number, //dud for now
+        description: String,
+        attachments: [String],
+        shares: Number,
+        trendingScore: Number,
+        articleEdits: [{type: Schema.Types.ObjectId, ref: 'articleEdit'}]      
     }, {
         collection: 'articles'
     });

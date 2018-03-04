@@ -2,6 +2,9 @@
 
 var mongoose = require('mongoose'),
     agency = mongoose.model('agency');
+var articleController = require('./articleController');
+
+var ObjectId = mongoose.Types.ObjectId; 
 
 //GET /agencies
 exports.getAgencies = function (req, res) {
@@ -18,11 +21,30 @@ exports.getAgencies = function (req, res) {
             obj['name'] = ag.value;
             obj['id'] = ag._id;
             //getArticleCount function here?
-            obj['articleCount'] = index; // query to get article count?            
+            obj['articleCount'] = index; // query to get article count            
             returnlist.push(obj); 
         })
         res.json({'data': returnlist});//will probably standardize later
     })
 };
 
-//function getArticleCount?(agencyId) {};    
+//**************************** API internal functions ***********//
+
+exports.incrementAgencyArticleCount = function(agencyIdString) {
+    var agencyId = new ObjectId(agencyIdString); 
+
+    var queryParams = {};
+    queryParams._id = agencyId; 
+    var query = agency.findOne(queryParams);
+    query.exec();
+    query.then(function(ag) {
+        if (!ag.articleCount) {
+            ag.articleCount = 1; 
+        }
+        else {
+            ag.articleCount = ag.articleCount + 1; 
+        }
+        ag.save(); 
+    });
+    return; 
+}
