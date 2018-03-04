@@ -8,7 +8,7 @@ var options = {
   "method": "POST",
   "hostname": "hooks.slack.com",
   "port": null,
-  "path": "/services/T0DD4DR5G/B9CHWRD9V/tSqTrOH8OXfGaw2xcjshJse7",
+  "path": "/services/T24NK3T7X/B9FA3MWF4/32bsyNtbh5LarxrKI223kF1o",
   "headers": {
     "content-type": "application/x-www-form-urlencoded",
     "cache-control": "no-cache"
