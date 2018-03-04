@@ -205,14 +205,8 @@ def sendSlackNotification() {
         echo "$RESULTS"
         // echo "RESULTS: --->"
         // echo results
-        script = sh '''#!/bin/bash
-            sleep 10
-            logs=$(git log -1 --pretty=%B origin/staging)
-            echo "test"
-            node ./src/devops/scripts/slackNotification.js "SUCCESS" "*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n$logs\n"
-        '''
-
-        script "$RESULTS"
+        sh 'sleep 10 && logs=$(git log -1 --pretty=%B origin/staging) && node ./src/devops/scripts/slackNotification.js "SUCCESS" "*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n$logs\n" "${RESULTS}"'
+        
     }
 }
 
