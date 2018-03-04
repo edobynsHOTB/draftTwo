@@ -71,8 +71,10 @@ def runStagingTests() {
 
             testBadge=""
             if [ "$numberOfSuccesses" -lt "$numberOfTests" ]; then
+                echo "FAILURE" > resultType
                 testBadge=https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-red.svg
             else
+                echo "SUCCESS" > resultType
                 testBadge=https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-brightgreen.svg
             fi
 
@@ -204,7 +206,8 @@ def sendSlackNotification() {
         def nodeHome = tool 'NodeTool' // Load Node.js
         env.PATH="${env.PATH}:${nodeHome}/bin" // Set Path
         RESULTS = readFile 'testResults'
-        sh "sleep 10 && logs=\$(git log -1 --pretty=%B origin/staging) && echo \"$RESULTS\" && resultType=\"\"; if [ \"$numberOfSuccesses\" -lt \"$numberOfTests\" ]; then; resultType=FAILURE; else; resultType=SUCCESS; fi && node ./src/devops/scripts/slackNotification.js \"$resultType\" \"*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n\$logs\n\n\" \"$RESULTS\""
+        RESULT_TYPE =  readFile 'resultType'
+        sh "sleep 10 && logs=\$(git log -1 --pretty=%B origin/staging) && echo \"$RESULTS\" && node ./src/devops/scripts/slackNotification.js \"$RESULT_TYPE\" \"*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n\$logs\n\n\" \"$RESULTS\""
     }
 }
 
