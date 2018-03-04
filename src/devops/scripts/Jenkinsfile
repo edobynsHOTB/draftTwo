@@ -68,8 +68,8 @@ def runStagingTests() {
             failures=$(cat /var/lib/jenkins/adpq_test_results/results.xml | cut -d '=' -f 4 | cut -d '>' -f 1)
             numberOfSuccesses=$(($numberOfTests - $errors - $failures))
 
-            curl https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-brightgreen.svg >> testResults.svg
-            aws s3 cp --acl public-read testResults.svg s3://adpq-assets/buildAssets/testResults.svg
+            curl https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-brightgreen.svg >> ./testResults.svg
+            aws s3 cp --acl public-read ./testResults.svg s3://adpq-assets/buildAssets/testResults.svg
         '''
     }
 }
