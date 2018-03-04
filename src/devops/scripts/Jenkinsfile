@@ -204,7 +204,7 @@ def sendSlackNotification() {
         def nodeHome = tool 'NodeTool' // Load Node.js
         env.PATH="${env.PATH}:${nodeHome}/bin" // Set Path
         RESULTS = readFile 'testResults'
-        sh "sleep 10 && logs=\$(git log -1 --pretty=%B origin/staging) && echo \"$RESULTS\" && node ./src/devops/scripts/slackNotification.js \"SUCCESS\" \"*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n\$logs\n\n\" \"$RESULTS\""
+        sh "sleep 10 && logs=\$(git log -1 --pretty=%B origin/staging) && echo \"$RESULTS\" && resultType=\"\"; if [ \"$numberOfSuccesses\" -lt \"$numberOfTests\" ]; then; resultType=FAILURE; else; resultType=SUCCESS; fi && node ./src/devops/scripts/slackNotification.js \"$resultType\" \"*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n\$logs\n\n\" \"$RESULTS\""
     }
 }
 
