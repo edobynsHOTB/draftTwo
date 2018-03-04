@@ -202,7 +202,7 @@ def sendSlackNotification() {
         // def results = readFile('testResults')
         env.RESULTS = readFile 'testResults'
         echo "RESULTS:"
-        echo "${env.RESULTS}"
+        echo "$env.RESULTS"
         // echo "RESULTS: --->"
         // echo results
         sh '''#!/bin/bash
@@ -210,7 +210,7 @@ def sendSlackNotification() {
             logs=$(git log -1 --pretty=%B origin/staging)
             echo "test"
             echo $1
-            node ./src/devops/scripts/slackNotification.js "SUCCESS" "*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n$logs\n" ${env.RESULTS}
+            node ./src/devops/scripts/slackNotification.js "SUCCESS" "*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n$logs\n" $env.RESULTS
         '''
     }
 }
