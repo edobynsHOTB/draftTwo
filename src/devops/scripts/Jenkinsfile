@@ -54,6 +54,8 @@ def publish() {
 def runStagingTests() {
     stage('Test') {
         sh '''#!/bin/bash
+            $(aws ecr get-login --no-include-email --region us-west-1)
+
             sleep 10
 
             rm -rf /var/lib/jenkins/adpq_test_results
