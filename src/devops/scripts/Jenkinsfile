@@ -209,8 +209,8 @@ def sendSlackNotification() {
             sleep 10
             logs=$(git log -1 --pretty=%B origin/staging)
             echo "test"
-            echo "${1}"
-            node ./src/devops/scripts/slackNotification.js "SUCCESS" "*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n${logs}\n" "${RESULTS}"
+            echo "\${1}"
+            node ./src/devops/scripts/slackNotification.js "SUCCESS" "*New Staging Build Available*:\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n\${logs}\n" "\${RESULTS}"
         """
     }
 }
