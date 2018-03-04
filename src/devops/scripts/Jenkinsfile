@@ -70,7 +70,7 @@ def runStagingTests() {
             echo "$numberOfSuccesses / $numberOfTests tests ran successfully" > testResults
 
             testBadge=""
-            if [ $numberOfSuccesses < $sumberOfTests ]; then
+            if [ $numberOfSuccesses < $numberOfTests ]; then
                 testBadge=https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-red.svg
             else
                 testBadge=https://img.shields.io/badge/tests-$numberOfSuccesses%2F$numberOfTests-brightgreen.svg
