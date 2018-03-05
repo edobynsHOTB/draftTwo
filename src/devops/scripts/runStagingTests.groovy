@@ -1,4 +1,4 @@
-import static java.util.Calendar.*
+import java.text.SimpleDateFormat
 
 node {
     stage('Checkout') {
@@ -52,11 +52,8 @@ def sendSlackNotification() {
     stage ('Notify') {
         def nodeHome = tool 'NodeTool' // Load Node.js
         env.PATH="${env.PATH}:${nodeHome}/bin" // Set Path
-        def timeZone = TimeZone.getTimeZone('PST')
-        def cal = Calendar.instance
-        def calDate = cal.time
-        def dateFormat = 'yyyy/MM/dd HH:mm'
-        TIMESTAMP = calDate.format(dateFormat, timeZone)
+        def dateFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss")
+        TIMESTAMP = dateFormat.format(new Date())
         RESULTS = readFile 'RESULTS'
         RESULT_TYPE =  readFile 'RESULT_TYPE'
         sh "sleep 10 && node ./src/devops/scripts/slackNotification.js \"$RESULT_TYPE\" \"*Nightly Test Results* - $TIMESTAMP\" \"$RESULTS\""
