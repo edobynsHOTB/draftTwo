@@ -55,7 +55,7 @@ def sendSlackNotification() {
         def timeZone = TimeZone.getTimeZone('PST')
         def cal = Calendar.instance
         def calDate = cal.time
-        def dateFormat = 'yyyy/MM/dd HH:mm')
+        def dateFormat = 'yyyy/MM/dd HH:mm'
         TIMESTAMP = calDate.format(dateFormat, timeZone)
         RESULTS = readFile 'RESULTS'
         RESULT_TYPE =  readFile 'RESULT_TYPE'
