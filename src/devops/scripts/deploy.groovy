@@ -214,7 +214,8 @@ def sendSlackNotification() {
         def nodeHome = tool 'NodeTool' // Load Node.js
         env.PATH="${env.PATH}:${nodeHome}/bin" // Set Path
         def dateFormat = new SimpleDateFormat("MMM d, yyyy HH:mm")
-        TIMESTAMP = dateFormat.format(new Date(), TimeZone.getTimeZone("PST"))
+        dateFormat.setTimeZone(TimeZone.getTimeZone("PST"))
+        TIMESTAMP = dateFormat.format(new Date())
         RESULTS = readFile 'RESULTS'
         RESULT_TYPE =  readFile 'RESULT_TYPE'
         sh "sleep 10 && logs=\$(git log -1 --pretty=%B origin/staging) && echo \"$RESULTS\" && node ./src/devops/scripts/slackNotification.js \"$RESULT_TYPE\" \"*New Staging Build Available* - $TIMESTAMP\nhttp://adpq-staging.hotbsoftware.com\n\n*Build Notes:*\n\$logs\n\n\" \"$RESULTS\""
